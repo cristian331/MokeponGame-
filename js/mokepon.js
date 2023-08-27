@@ -100,8 +100,6 @@ let capipepo = new Mokepon('Capipepo', './assets/mokepons_mokepon_capipepo_attac
 
 let ratigueya = new Mokepon('Ratigueya', './assets/mokepons_mokepon_ratigueya_attack.png', 5, './assets/ratigueya.png')
 
-
-
 const hipodoge_ataques = [
   {nombre: '💧', id:'boton-agua'},
   {nombre: '💧', id:'boton-agua'},
@@ -284,12 +282,7 @@ function obtenerAtaques() {
               combate()
             }
           })
-
       }
-
-
-
-
   })
 }
 
@@ -447,9 +440,6 @@ function pintarCanvas() {
     mokepon.pintarMokepon()
     revisarColision(mokepon)
   })
-
-
-
 }
 
 function enviarPosicion(x, y) {
