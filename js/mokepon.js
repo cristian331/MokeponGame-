@@ -437,7 +437,7 @@ function pintarCanvas() {
   enviarPosicion(mascotaJugadorObjeto.x, mascotaJugadorObjeto.y) 
   //console.log(mascotaJugadorObjeto.x, mascotaJugadorObjeto.y)
 
-  mokeponesEnemigos.forEach(function (mokepon){
+  mokeponesEnemigos.forEach( mokepon => {
     mokepon.pintarMokepon()
     revisarColision(mokepon)
   })
@@ -471,8 +471,8 @@ function enviarPosicion(x, y) {
             }
             mokeponEnemigo.x = enemigo.x
             mokeponEnemigo.y = enemigo.y
-            mokeponEnemigo.pintarMokepon();
-            // return mokeponEnemigo
+
+            return mokeponEnemigo
           })
         })
       }
