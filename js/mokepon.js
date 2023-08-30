@@ -250,7 +250,6 @@ function secuenciaAtaques() {
         boton.style.background = '#112f58' 
         boton.disabled = true
       }
-      //iniciarSecuenciaAtaquesEnemigo()
       if(ataquesJugador.length === 5){
         enviarAtaques()
       }
@@ -259,10 +258,10 @@ function secuenciaAtaques() {
 }
 
 function enviarAtaques(){
-  fetch(`http://192.168.0.29:8080/mokepon/${jugadorId}/ataques`,{
+  fetch(`http://localhost:8080/mokepon/${jugadorId}/ataques`,{
     method: "post",
     headers: {
-      "Content-Type": "applicaction/json"
+      "Content-Type": "application/json" 
     },
     body: JSON.stringify({
       ataques: ataquesJugador
@@ -273,14 +272,15 @@ function enviarAtaques(){
 }
 
 function obtenerAtaques() {
-  fetch(`http://192.168.0.29:8080/mokepon/${enemigoId}/ataques`)
-    .then(function(res){
+  fetch(`http://localhost:8080/mokepon/${enemigoId}/ataques`)
+    .then(res => {
       if (res.ok) {
         res.json()
-          .then(function({ ataques }){
-            if (ataques.length === 5){
-              ataqueEnemigo = ataques
-              combate()
+          .then(({ ataquesEne }) => {
+            // console.log(ataques.length)
+            if (ataquesEne.length === 5){
+              ataqueEnemigo = ataquesEne;
+              combate();
             }
           })
       }
@@ -295,52 +295,6 @@ function seleccionarMascotaEnemigo(mascotaColisiono) {
   secuenciaAtaques()
 }
 
-function iniciarSecuenciaAtaquesEnemigo(){
-    if(ataquesJugador.length === 5){
-     ataquesAleatorioEnemigo()
-  }
-}
-
-function ataquesAleatorioEnemigo() {
-  let a
-  let ataqueAleatorio
-  ataqueAleatorio = aleatorio(0,ataquesJugador.length -1)
-  secuenciaAtaqueEnemigo[0] = ataqueAleatorio 
-  
-  for (let j=0; j < ataquesJugador.length-1; j++){
-    a = secuenciaAtaqueEnemigo.length
-    ataqueAleatorio = aleatorio(0,ataquesJugador.length -1)
-    for (let i = 0; i < a; i++) {
-      if (ataqueAleatorio != secuenciaAtaqueEnemigo[i]) {
-        secuenciaAtaqueEnemigo[j + 1] = ataqueAleatorio
-      }else if (ataqueAleatorio == secuenciaAtaqueEnemigo[i] && i==0) {
-        j--
-        i= ataquesJugador.length + 2
-      }else if (ataqueAleatorio == secuenciaAtaqueEnemigo[i] && i!=0) {
-        secuenciaAtaqueEnemigo.pop()
-        j--
-        i= ataquesJugador.length + 2
-      }
-    }
-  }
-  for(i = 0; i < secuenciaAtaqueEnemigo.length; i++ ){
-    if(ataquesMokeponEnemigo[secuenciaAtaqueEnemigo[i]].nombre == '🔥'){
-      ataqueEnemigo[i] = 'FUEGO'
-    } else if(ataquesMokeponEnemigo[secuenciaAtaqueEnemigo[i]].nombre == '💧'){
-      ataqueEnemigo[i] = 'AGUA'
-    }else {
-      ataqueEnemigo[i] = 'TIERRA'
-    }
-  }
-  //console.log(ataqueEnemigo,ataquesJugador)
-  iniciarCombate()
-}
-
-function iniciarCombate(){
-  if(secuenciaAtaqueEnemigo.length === 5){
-    combate()
-  }
-}
 
 function indexAmbosOponentes(jugador,enemigo) {
   indexAtaqueJugador = ataquesJugador[jugador]
@@ -458,7 +412,7 @@ function enviarPosicion(x, y) {
     if (res.ok) {
       res.json()
         .then(({ enemigos }) => {
-          //console.log(enemigos)
+          // console.log(enemigos)
           mokeponesEnemigos = enemigos.map(enemigo => {
             let mokeponEnemigo = null
             const mokeponNombre = enemigo.mokepon.nombre || ""
