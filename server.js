@@ -4,6 +4,9 @@ const cors = require("cors");
 // inicializar express como "app"
 const app = express();
 
+// Servir archivos estaticos en un endpoint de la ruta.
+app.use(express.static('public'));
+
 //Para evitar tener errores de cors
 app.use(cors());
 

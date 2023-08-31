@@ -191,12 +191,11 @@ function seleccionarMascotaJugador() {
     location.reload()
   }
 
-  console.log(mascotaJugador)
+  // console.log(mascotaJugador)
   extraerAtaques(mascotaJugador)
   sectionVerMapa.style.display = 'flex'
-  iniciarMapa()
-  //seleccionarMascotaEnemigo()
   
+  iniciarMapa()
   seleccionMokepon(mascotaJugador);
 
 }
