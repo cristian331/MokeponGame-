@@ -75,8 +75,8 @@ class Mokepon {
     this.foto = foto
     this.vida = vida
     this.ataques = []
-    this.ancho = 40
-    this.alto = 40
+    this.ancho = mapa.width* (50/550)
+    this.alto = mapa.width* (50/550)
     this.x = aleatorio(0, mapa.width - this.ancho)
     this.y = aleatorio(0, mapa.height - this.alto)
     this.mapaFoto = new Image()
@@ -161,7 +161,7 @@ function iniciarJuego() {
 }
 
 function uniserAlJuego() {
-  fetch("http://localhost:8080/unirse")
+  fetch("http://192.168.0.29:8080/unirse")
       .then( (res) => {
         if(res.ok){
           res.text()
@@ -201,7 +201,7 @@ function seleccionarMascotaJugador() {
 }
 
 function seleccionMokepon(mascotaJugador) {
-  fetch(`http://localhost:8080/mokepon/${jugadorId}`, {
+  fetch(`http://192.168.0.29:8080/mokepon/${jugadorId}`, {
     method: "post",
     headers: {
       "Content-Type": "application/json" 
@@ -257,7 +257,7 @@ function secuenciaAtaques() {
 }
 
 function enviarAtaques(){
-  fetch(`http://localhost:8080/mokepon/${jugadorId}/ataques`,{
+  fetch(`http://192.168.0.29:8080/mokepon/${jugadorId}/ataques`,{
     method: "post",
     headers: {
       "Content-Type": "application/json" 
@@ -271,7 +271,7 @@ function enviarAtaques(){
 }
 
 function obtenerAtaques() {
-  fetch(`http://localhost:8080/mokepon/${enemigoId}/ataques`)
+  fetch(`http://192.168.0.29:8080/mokepon/${enemigoId}/ataques`)
     .then(res => {
       if (res.ok) {
         res.json()
@@ -397,7 +397,7 @@ function pintarCanvas() {
 }
 
 function enviarPosicion(x, y) {
-  fetch(`http://localhost:8080/mokepon/${jugadorId}/posicion`, {
+  fetch(`http://192.168.0.29:8080/mokepon/${jugadorId}/posicion`, {
     method: "post",
     headers: {
       "Content-Type": "application/json"
@@ -422,8 +422,8 @@ function enviarPosicion(x, y) {
             }else if(mokeponNombre === "Ratigueya"){
                mokeponEnemigo = new Mokepon('Ratigueya', './assets/mokepons_mokepon_ratigueya_attack.png', 5, './assets/ratigueya.png', enemigo.id)
             }
-            mokeponEnemigo.x = enemigo.x
-            mokeponEnemigo.y = enemigo.y
+            mokeponEnemigo.x = enemigo.x || 0
+            mokeponEnemigo.y = enemigo.y || 0
 
             return mokeponEnemigo
           })
